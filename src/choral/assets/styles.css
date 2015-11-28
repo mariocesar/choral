@@ -1,0 +1,10 @@
+@define-color colorPrimary #af81d6;
+
+.headerbar {
+    color: shade (#000, 1.60);
+}
+
+.headerbar-crazy {
+    color: green;
+    background-color: red;
+}

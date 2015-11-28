@@ -1,2 +1,34 @@
-# choral-app
+# Choral
+
 A fork/rewrite of Nathan Dyer's vocal app made in Python/Gtk3
+
+Using Python 3.4.3
+
+
+# Running in develop
+
+    git clone git@github.com:mariocesar/choral-app.git
+    cd choral-app/
+    virtualenv --python=/usr/bin/python3.4 env
+    source env/bin/activate
+    (venv) pip install -e .
+    (venv) python -m choral
+
+# Common issues
+
+## Development Requiments in Ubuntu/Debian
+
+You may need:
+
+    sudo apt-get install libgtk-3-0 python3-gi
+
+## Missing accessibility bus:
+
+If you see this warning:
+
+    ** (__main__.py:5684): WARNING **: Couldn't connect to accessibility bus: Failed to connect to socket /tmp/dbus-bIKmAltvbA: Connection refused
+
+You could either dismiss it, or run the app with the command bellow,
+to hide that warning.
+
+    NO_AT_BRIDGE=1 python -m choral
