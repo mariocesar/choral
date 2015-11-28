@@ -14,6 +14,13 @@ Using Python 3.4.3
     (venv) pip install -e .
     (venv) python -m choral
 
+# Current status:
+
+![Screnshot](https://raw.githubusercontent.com/mariocesar/choral-app/master/screenshot.png)
+
+ -[] New branding?
+ -[] Download and Update manager in a second process (As a service)
+
 # Common issues
 
 ## Development Requiments in Ubuntu/Debian
