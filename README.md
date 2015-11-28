@@ -18,8 +18,8 @@ Using Python 3.4.3
 
 ![Screnshot](https://raw.githubusercontent.com/mariocesar/choral-app/master/screenshot.png)
 
- -[] New branding?
- -[] Download and Update manager in a second process (As a service)
+- [ ] New branding?
+- [ ] Download and Update manager in a second process (As a service)
 
 # Common issues
 
