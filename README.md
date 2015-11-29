@@ -4,7 +4,6 @@ A fork/rewrite of Nathan Dyer's vocal app made in Python/Gtk3
 
 Using Python 3.4.3
 
-
 # Running in develop
 
     git clone git@github.com:mariocesar/choral-app.git
@@ -27,7 +26,7 @@ Using Python 3.4.3
 
 You may need:
 
-    sudo apt-get install libgtk-3-0 python3-gi
+    sudo apt-get install python3-gi gir1.2-gtk-3.0 gir1.2-webkit2-3.0
 
 ## Missing accessibility bus:
 

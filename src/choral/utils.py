@@ -1,13 +1,7 @@
+import os
 from gi.repository import Gtk
 
-
-def build_css_provider(path):
-    provider = Gtk.CssProvider()
-
-    with open(path, 'r') as f:
-        provider.load_from_data(f.read().encode('UTF-8'))
-
-    return provider
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def gtk_image_from_theme(theme, icon_name, size=Gtk.IconSize.LARGE_TOOLBAR):
