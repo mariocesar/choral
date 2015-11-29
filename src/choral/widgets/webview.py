@@ -26,13 +26,12 @@ class WebView(WebKit2.WebView):
         settings.set_enable_plugins(False),
         settings.set_enable_page_cache(False)
         settings.set_enable_dns_prefetching(True)
-        self.show()
 
     def request_callback(self, request):
         path = os.path.join(ROOT_DIR, 'assets/', request.get_path().lstrip('/'))
-        mimetype = self.app.get_mimetype(path)
 
         if os.path.exists(path):
+            mimetype = self.app.get_mimetype(path)
             request.finish(Gio.File.new_for_path(path).read(None), -1, mimetype)
         else:
             raise Exception('App resource path not found: {0}'.format(path))

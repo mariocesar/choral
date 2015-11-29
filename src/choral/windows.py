@@ -22,7 +22,6 @@ class MainWindow(BaseWindow):
         webview = WebView(app)
         webview.load_uri('choral:///directory.html')
         webview.show()
-        webview.show()
 
         self.add(webview)
         self.show()

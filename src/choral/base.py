@@ -58,3 +58,14 @@ class BaseWindow(Gtk.Window):
         context.add_provider_for_screen(
             screen, css_provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+    def restore_position(self):
+        try:
+            x, y = self.app.settings['window-position']
+        except ValueError:
+            self.set_position(Gtk.WindowPosition.CENTER)
+        else:
+            self.move(x, y)
+
+    def save_position(self, widget, event):
+        self.app.settings['window-position'] = widget.get_position()

@@ -44,13 +44,13 @@ class Toolbar(Gtk.HeaderBar):
         self.pack_end(app_menu)
         self.set_custom_title(headerbar_box)
 
-    def add_feed_selected(self):
+    def add_feed_selected(self, widget):
         pass
 
-    def import_selected(self):
+    def import_selected(self, widget):
         pass
 
-    def export_selected(self):
+    def export_selected(self, widget):
         pass
 
     def preferences_selected(self, widget):
