@@ -14,7 +14,6 @@ class Application(Gtk.Application):
         self.theme = Gtk.IconTheme.get_default()
 
         self.window = MainWindow(self)
-        self.window.connect('destroy', Gtk.main_quit)
         self.window.show_all()
 
         self.add_window(self.window)

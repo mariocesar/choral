@@ -1,3 +1,4 @@
+from gi.repository import Gtk
 from .application import Application
 
 

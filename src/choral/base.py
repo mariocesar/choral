@@ -32,9 +32,7 @@ class BaseWindow(Gtk.Window):
             with open(os.path.join(ROOT_PATH, self._stylesheet), 'r') as f:
                 stylesheet = f.read().encode('UTF-8')
 
-            self.set_theming(stylesheet)
-
-        self.connect("destroy", Gtk.main_quit)
+            self.set_theming(stylesheet, self._name)
 
     @property
     def title(self):
