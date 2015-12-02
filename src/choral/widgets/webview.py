@@ -1,12 +1,10 @@
 import os
-from gi.repository import Gio, WebKit2
-
-
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from gi.repository import Gtk, Gio, WebKit2
+from choral.conf import settings
 
 
 class WebView(WebKit2.WebView):
-    def __init__(self, app):
+    def __init__(self, app: Gtk.Application):
         self.app = app
         WebKit2.WebView.__init__(self)
 
@@ -28,7 +26,7 @@ class WebView(WebKit2.WebView):
         settings.set_enable_dns_prefetching(True)
 
     def request_callback(self, request):
-        path = os.path.join(ROOT_DIR, 'assets/', request.get_path().lstrip('/'))
+        path = os.path.join(settings.BASE_DIR, 'assets/', request.get_path().lstrip('/'))
 
         if os.path.exists(path):
             mimetype = self.app.get_mimetype(path)

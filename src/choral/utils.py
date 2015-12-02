@@ -1,7 +1,7 @@
-import os
+import logging
 from gi.repository import Gtk
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+logger = logging.getLogger(__name__)
 
 
 def gtk_image_from_theme(theme, icon_name, size=Gtk.IconSize.LARGE_TOOLBAR):

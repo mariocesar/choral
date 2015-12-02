@@ -29,7 +29,6 @@ class SettingsDialog(Gtk.Dialog):
         button_box.pack_end(close_button, False, False, 12)
 
         content.add(button_box)
-        self.show_all()
 
     def close_dialog(self, widget):
         self.destroy()

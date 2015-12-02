@@ -1,10 +1,10 @@
 from gi.repository import Gtk
 from choral.utils import gtk_image_from_icon_name
-from .dialogs import SettingsDialog
+from choral.widgets.dialogs import SettingsDialog
 
 
 class Toolbar(Gtk.HeaderBar):
-    def __init__(self, window, app):
+    def __init__(self, window, app: Gtk.Application):
         super().__init__()
         self.app = app
         self.set_show_close_button(True)
@@ -34,6 +34,10 @@ class Toolbar(Gtk.HeaderBar):
         preferences_item = Gtk.MenuItem(label="Preferences")
         preferences_item.connect("activate", self.preferences_selected)
         menu.add(preferences_item)
+
+        about_item = Gtk.MenuItem(label="About")
+        about_item.connect("activate", self.app.about_dialog)
+        menu.add(about_item)
 
         menu.show_all()
 
