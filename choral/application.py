@@ -1,22 +1,33 @@
 import os
+import logging
 import magic
+
 from gi.repository import Gtk, Gdk, GLib, Gio
 
-from choral import log
 from choral.window import MainWindow
 from choral.conf import settings
-import logging
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('choral')
 
 
 class Application(Gtk.Application):
     def __init__(self):
-        Gtk.Application.__init__(
-            self,
-            application_id='net.launchpad.choral',
-            flags=Gio.ApplicationFlags.FLAGS_NONE)
+        Gtk.Application.__init__(self, application_id=settings.namespace)
 
+        self.window = None
+
+    def do_activate(self):
+        if not self.window:
+            self.window = MainWindow(self)
+            self.window.show_all()
+
+            logger.debug('do_activate: Make window application')
+        else:
+            logger.debug('do_activate: Make window present')
+            self.window.present()
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
         Gdk.set_program_class('choral')
         GLib.set_prgname('choral')
 
@@ -24,40 +35,41 @@ class Application(Gtk.Application):
             stylesheet = f.read().encode('UTF-8')
             self.set_theming(stylesheet, 'choral')
 
-        self._mime = magic.open(magic.MAGIC_MIME)
-        self._mime.load()
-
-    @log
-    def do_activate(self):
-        Gtk.Application.do_activate(self)
+        self.mime = magic.Magic(mime=True)
         self.theme = Gtk.IconTheme.get_default()
-        self.window = MainWindow(self)
-        self.window.show_all()
-        self.add_window(self.window)
 
         about_action = Gio.SimpleAction.new('about', None)
-        about_action.connect('activate', self.about_dialog)
+        about_action.connect('activate', self.about_callback)
         self.add_action(about_action)
 
-    @log
-    def about_dialog(self, *args):
+        help_action = Gio.SimpleAction.new("help", None)
+        help_action.connect("activate", self.help_callback)
+        self.add_action(help_action)
+
+        quit_action = Gio.SimpleAction.new("quit", None)
+        quit_action.connect("activate", self.quit_callback)
+        self.add_action(quit_action)
+
+    def about_callback(self, *args):
+        logger.debug('About dialog')
+
         builder = Gtk.Builder()
         builder.add_from_file(os.path.join(settings.BASE_DIR, 'ui/aboutdialog.ui'))
+
         about = builder.get_object('aboutdialog')
         about.set_transient_for(self.window)
         about.connect("response", lambda dialog, response: dialog.destroy())
         about.show()
 
-    @log
-    def quit(self, action=None, param=None):
-        self.window.destroy()
+    def help_callback(self):
+        logger.warning('Help not implemented yet')
 
-    @log
-    def get_mimetype(self, path):
-        return self._mime.file(path)
+    def quit_callback(self):
+        self.quit()
 
-    @log
     def set_theming(self, stylesheet: bytes, class_name: str = None):
+        logger.debug('Setting theming with %s' % stylesheet)
+
         screen = Gdk.Screen.get_default()
         context = Gtk.StyleContext()
 

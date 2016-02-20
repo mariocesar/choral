@@ -1,27 +1,8 @@
 import logging
 import sys
 import signal
-from colorlog import ColoredFormatter
 import gi
-
-formatter = ColoredFormatter(
-    "%(log_color)s[%(levelname)s %(asctime)s]%(reset)s %(message)s",
-    datefmt=None,
-    reset=True,
-    log_colors={
-        'DEBUG': 'purple',
-        'INFO': 'blue',
-        'WARNING': 'yellow',
-        'ERROR': 'red',
-        'CRITICAL': 'bg_red',
-    }
-)
-logger = logging.getLogger('choral')
-
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(logging.DEBUG)
+from colorlog import ColoredFormatter
 
 
 def install_excepthook():
@@ -38,9 +19,35 @@ def install_excepthook():
     sys.excepthook = new_hook
 
 
-if __name__ == "__main__":
+def config_logger():
+    formatter = ColoredFormatter(
+        "%(log_color)s[%(levelname)s %(asctime)s]%(reset)s %(message)s",
+        datefmt=None,
+        reset=True,
+        log_colors={
+            'DEBUG': 'purple',
+            'INFO': 'blue',
+            'WARNING': 'yellow',
+            'ERROR': 'red',
+            'CRITICAL': 'bg_red',
+        }
+    )
+
+    logger = logging.getLogger('choral')
+
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
+
+
+
+def start():
     gi.require_version('GIRepository', '2.0')
     gi.require_version('Gtk', '3.0')
+    gi.require_version('WebKit2', '4.0')
+
+    config_logger()
     install_excepthook()
 
     from choral.application import Application

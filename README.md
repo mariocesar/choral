@@ -1,3 +1,5 @@
+Choral is a Desktop podcast app
+
 # Choral
 
 A fork/rewrite of Nathan Dyer's vocal app made in Python/Gtk3

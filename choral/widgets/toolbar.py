@@ -1,6 +1,10 @@
+import logging
+
 from gi.repository import Gtk
 from choral.utils import gtk_image_from_icon_name
 from choral.widgets.dialogs import SettingsDialog
+
+logger = logging.getLogger('choral')
 
 
 class Toolbar(Gtk.HeaderBar):
@@ -15,28 +19,27 @@ class Toolbar(Gtk.HeaderBar):
 
         self.set_custom_title(headerbar_box)
 
-        menu = Gtk.Menu()
-
         add_feed_item = Gtk.MenuItem(label="Add Podcast Feed")
         add_feed_item.connect("activate", self.add_feed_selected)
-        menu.add(add_feed_item)
 
         import_item = Gtk.MenuItem(label="Import Subcriptions...")
         import_item.connect("activate", self.import_selected)
-        menu.add(import_item)
 
         export_item = Gtk.MenuItem(label="Export Subscriptions...")
         export_item.connect("activate", self.export_selected)
-        menu.add(export_item)
-
-        menu.add(Gtk.SeparatorMenuItem())
 
         preferences_item = Gtk.MenuItem(label="Preferences")
         preferences_item.connect("activate", self.preferences_selected)
-        menu.add(preferences_item)
 
         about_item = Gtk.MenuItem(label="About")
-        about_item.connect("activate", self.app.about_dialog)
+        about_item.connect("activate", self.app.about_callback)
+
+        menu = Gtk.Menu()
+        menu.add(add_feed_item)
+        menu.add(import_item)
+        menu.add(export_item)
+        menu.add(Gtk.SeparatorMenuItem())
+        menu.add(preferences_item)
         menu.add(about_item)
 
         menu.show_all()
@@ -49,14 +52,15 @@ class Toolbar(Gtk.HeaderBar):
         self.set_custom_title(headerbar_box)
 
     def add_feed_selected(self, widget):
-        pass
+        logger.info('Add feed dialog')
 
     def import_selected(self, widget):
-        pass
+        logger.info('Import feed dialog')
 
     def export_selected(self, widget):
-        pass
+        logger.info('Export feed dialog')
 
     def preferences_selected(self, widget):
+        logger.info('Preferences dialog')
         settings_dialog = SettingsDialog(self.parent)
         settings_dialog.show_all()
